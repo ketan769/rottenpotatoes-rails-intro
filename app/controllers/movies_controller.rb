@@ -48,7 +48,11 @@ class MoviesController < ApplicationController
       flash.keep
       logger.debug(flash[:notice].inspect)
       redirect_to movies_path :sort =>@sort_by, :rating => @rate
-    end  
+    end
+    if params['sort']=='xy'
+      @sort_by=nil
+      @rate=nil  
+    end
     if @sort_by or @rate
       @movies=Movie.with_rating(@rate).order(@sort_by)
       @sort_v=@sort_by

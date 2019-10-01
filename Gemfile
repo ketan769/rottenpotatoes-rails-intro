@@ -52,7 +52,8 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg', '~> 0.21' # for Heroku deployment
+  # gem 'pg', '~> 0.21' # for Heroku deployment
+  gem 'sqlite3'
   gem 'rails_12factor'
 end
 

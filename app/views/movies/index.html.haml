@@ -8,6 +8,10 @@
     = rating
     = check_box_tag "rating[#{rating}]"
   = submit_tag 'Refresh' ,:id =>'ratings_submit'
+// = form_tag  movies_path,:id =>'ratings_form' do
+    
+=link_to 'Reload',{ controller:'movies' ,action:'index', sort:'xy'}
+
 
 %table#movies.table.table-striped.col-md-12
   %thead
