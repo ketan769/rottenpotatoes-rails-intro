@@ -16,48 +16,45 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @sort_by=nil
-    @rate=nil
+    @sort_by=nil #variable that sorts the data 
+    @rate=nil #variable that filters data based on variable
     redirect=false
     logger.debug(flash[:notice].inspect)
     
-    if params[:sort]
+    if params[:sort]#sorting variable sent from view explicitly
       @sort_by=params[:sort]
-      session[:sort]=params[:sort]
-    elsif session[:sort]
+      session[:sort]=params[:sort]#store this value in session hash
+    elsif session[:sort]#if variable not sent explicitly use values from sessions hash
       @sort_by=session[:sort]
       redirect=true
     end
-    if params[:rating]
+    if params[:rating]#filtering variable sent from view explicitly
       @rate=params[:rating]
-      session[:rate]=params[:rating]
+      session[:rate]=params[:rating]#store these values in session hash
     elsif session[:rate]
-      @rate=session[:rate]
+      @rate=session[:rate]#if variable not sent explicitly use values from sessions hash
       session.clear
       redirect=true
     end
     
-    if params[:commit]=='Refresh' and params[:rating].nil?
+    if params[:commit]=='Refresh' and params[:rating].nil? # if refresh pressed withou ticking any box
       @rate=nil
-      # logger.debug(@rate.inspect)
       session[:rate]=nil
     end  
     logger.debug(flash[:notice].inspect)
-    if redirect
+    
+    if redirect # whenver coming back to main movie page we recall with the saved session variables 
       logger.debug('hey')
       flash.keep
       logger.debug(flash[:notice].inspect)
       redirect_to movies_path :sort =>@sort_by, :rating => @rate
     end
-    if params['sort']=='xy'
-      @sort_by=nil
-      @rate=nil  
-    end
-    if @sort_by or @rate
+    
+    if @sort_by or @rate #if variables present for sorting or filtering
       @movies=Movie.with_rating(@rate).order(@sort_by)
       @sort_v=@sort_by
       @all_ratings=Movie.all_rating()
-    else
+    else#no sorting or filtering required
       @movies=Movie.all
       @sort_by=nil
       @rate=nil

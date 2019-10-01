@@ -2,23 +2,21 @@
 %h2 All Movies
 
 
-= form_tag  movies_path, :method => :get,:id =>'ratings_form' do
+= form_tag  movies_path, :method => :get,:id =>'ratings_form' do #code to add filtering function
   Include:
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "rating[#{rating}]"
   = submit_tag 'Refresh' ,:id =>'ratings_submit'
-// = form_tag  movies_path,:id =>'ratings_form' do
-    
-=link_to 'Reload',{ controller:'movies' ,action:'index', sort:'xy'}
+
 
 
 %table#movies.table.table-striped.col-md-12
   %thead
     %tr
-      %th{:class=> ("hilite" if @sort_v=='title')}= link_to 'Movie Title',{ controller:'movies' ,action:'index', sort:'title'},:id =>'title_header' 
+      %th{:class=> ("hilite" if @sort_v=='title')}= link_to 'Movie Title',{ controller:'movies' ,action:'index', sort:'title'},:id =>'title_header' #creting a hyperlink on movie title
       %th Rating
-      %th{:class=> ("hilite" if @sort_v=='release_date')}= link_to 'Release Date',{ controller:'movies' ,action:'index',sort:'release_date'},:id =>'release_date_header'
+      %th{:class=> ("hilite" if @sort_v=='release_date')}= link_to 'Release Date',{ controller:'movies' ,action:'index',sort:'release_date'},:id =>'release_date_header' #creating a hyperlink on release date
       %th More Info
   %tbody
     - @movies.each do |movie|
