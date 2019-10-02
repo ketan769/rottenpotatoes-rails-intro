@@ -54,6 +54,7 @@ class MoviesController < ApplicationController
       @movies=Movie.with_rating(@rate).order(@sort_by)
       @sort_v=@sort_by
       @all_ratings=Movie.all_rating()
+    
     else#no sorting or filtering required
       @movies=Movie.all
       @sort_by=nil
@@ -61,6 +62,7 @@ class MoviesController < ApplicationController
       # @movies=@movie.order(params[:sort])
       @all_ratings=Movie.all_rating()
     end
+    @rate_av=@movies.distinct.pluck('rating')
     return session[:rate]
   end
 

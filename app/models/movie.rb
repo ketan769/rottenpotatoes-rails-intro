@@ -6,7 +6,6 @@ def self.with_rating(arr)
     else
         return Movie.all
     end
-        
 end
     
 def self.all_rating()

@@ -6,7 +6,8 @@
   Include:
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "rating[#{rating}]"
+    = check_box_tag "rating[#{rating}]" , 1, ("checked" if @rate_av.find_index(rating))
+
   = submit_tag 'Refresh' ,:id =>'ratings_submit'
 
 
@@ -14,7 +15,7 @@
 %table#movies.table.table-striped.col-md-12
   %thead
     %tr
-      %th{:class=> ("hilite" if @sort_v=='title')}= link_to 'Movie Title',{ controller:'movies' ,action:'index', sort:'title'},:id =>'title_header' #creting a hyperlink on movie title
+      %th{:class=> ("hilite" if @sort_v=='title')}= link_to 'Movie Title',{ controller:'movies' ,action:'index', sort:'title'},:id =>'title_header' #creating a hyperlink on movie title
       %th Rating
       %th{:class=> ("hilite" if @sort_v=='release_date')}= link_to 'Release Date',{ controller:'movies' ,action:'index',sort:'release_date'},:id =>'release_date_header' #creating a hyperlink on release date
       %th More Info
