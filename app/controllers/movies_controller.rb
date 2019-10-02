@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
     @sort_by=nil #variable that sorts the data 
     @rate=nil #variable that filters data based on variable
     redirect=false
-    logger.debug(flash[:notice].inspect)
+    # logger.debug(flash[:notice].inspect)
     
     if params[:sort]#sorting variable sent from view explicitly
       @sort_by=params[:sort]
@@ -42,12 +42,12 @@ class MoviesController < ApplicationController
       session[:rate]=nil
       @rate_av=@all_ratings
     end  
-    # logger.debug(flash[:notice].inspect)
+    
     
     if redirect # whenver coming back to main movie page we recall with the saved session variables 
-      logger.debug('hey')
+    
       flash.keep
-      logger.debug(flash[:notice].inspect)
+    
       redirect_to movies_path :sort =>@sort_by, :rating => @rate
     end
     
@@ -56,12 +56,9 @@ class MoviesController < ApplicationController
       @sort_v=@sort_by
       @all_ratings=Movie.all_rating()
       if @rate==nil
-        logger.debug('Bye')
         @rate_av=@all_ratings
       else
-        logger.debug('hey')
         @rate_av=@rate.keys
-        logger.debug(@rate_av.inspect)
       end
         
     else#no sorting or filtering required
