@@ -40,6 +40,7 @@ class MoviesController < ApplicationController
     if params[:commit]=='Refresh' and params[:rating].nil? # if refresh pressed withou ticking any box
       @rate=nil
       session[:rate]=nil
+      @rate_av=@all_ratings
     end  
     logger.debug(flash[:notice].inspect)
     
@@ -54,16 +55,23 @@ class MoviesController < ApplicationController
       @movies=Movie.with_rating(@rate).order(@sort_by)
       @sort_v=@sort_by
       @all_ratings=Movie.all_rating()
-    
+      if @rate==nil
+        logger.debug('Bye')
+        @rate_av=@all_ratings
+      else
+        logger.debug('hey')
+        @rate_av=@rate.keys
+        logger.debug(@rate_av.inspect)
+      end
+        
     else#no sorting or filtering required
       @movies=Movie.all
       @sort_by=nil
       @rate=nil
-      # @movies=@movie.order(params[:sort])
       @all_ratings=Movie.all_rating()
+      @rate_av=@all_ratings
     end
-    @rate_av=@movies.distinct.pluck('rating')
-    return session[:rate]
+    # return session[:rate]
   end
 
   def new
