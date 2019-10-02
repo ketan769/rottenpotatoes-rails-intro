@@ -42,7 +42,7 @@ class MoviesController < ApplicationController
       session[:rate]=nil
       @rate_av=@all_ratings
     end  
-    logger.debug(flash[:notice].inspect)
+    # logger.debug(flash[:notice].inspect)
     
     if redirect # whenver coming back to main movie page we recall with the saved session variables 
       logger.debug('hey')
