@@ -16,6 +16,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    flash.keep
     @sort_by=nil #variable that sorts the data 
     @rate=nil #variable that filters data based on variable
     redirect=false
@@ -45,10 +46,9 @@ class MoviesController < ApplicationController
     
     
     if redirect # whenver coming back to main movie page we recall with the saved session variables 
-    
-      flash.keep
-    
       redirect_to movies_path :sort =>@sort_by, :rating => @rate
+    else
+      flash.discard
     end
     
     if @sort_by or @rate #if variables present for sorting or filtering
